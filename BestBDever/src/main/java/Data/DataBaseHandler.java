@@ -19,7 +19,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public DataBaseHandler(Context context) {
         super(context, Util.DATABASE_NAME, null, Util.DATABASE_VERSION);
     }
-
+    //Создание БД
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String CREATE_PRODUCTS_TABLE = "CREATE TABLE " + Util.TABLE_NAME + " ("
@@ -30,11 +30,14 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_PRODUCTS_TABLE);
     }
 
+    //Без понятия, но звучит классно
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Util.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
+
+    //Добавление продукта
     public void addProd (Products products){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -45,6 +48,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.insert(Util.TABLE_NAME, null,contentValues);
         db.close();
     }
+
+    //Возвращает продукт нам
     public Products getProd(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(Util.TABLE_NAME, new String[] {Util.KEY_ID, Util.KEY_NAME, Util.KEY_CATEGORY},
@@ -56,6 +61,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 cursor.getString(1), cursor.getString(2));
         return products;
     }
+
+    //Возвращает все продукты
     public List<Products> getAllProd () {
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -75,6 +82,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         }
         return prodList;
     }
+
+    //Обновляет информацию о продукте
     public int updateProd (Products products) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -83,6 +92,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         return db.update(Util.TABLE_NAME, contentValues, Util.KEY_ID + "=?", new String[]{String.valueOf(products.getId())});
     }
+
+    //Удаляет продукт
     public void deleteProd (Products products){
         SQLiteDatabase db = this.getWritableDatabase();
 

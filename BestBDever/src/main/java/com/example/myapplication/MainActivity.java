@@ -7,8 +7,8 @@ import android.util.Log;
 
 import java.util.List;
 
-import Data.DataBaseHandler;
-import Model.Products;
+import com.example.myapplication.Data.DataBaseHandler;
+import com.example.myapplication.Model.Products;
 
 public class MainActivity extends AppCompatActivity {
 

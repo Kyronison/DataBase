@@ -35,8 +35,8 @@ public class Products {
     public String getCategory() {
         return category;
     }
-    public void setCategory(String salary) {
-        this.category = salary;
+    public void setCategory(String category) {
+        this.category = category;
     }
     //END Добавляем геттеры и сеттеры
 }

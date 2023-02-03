@@ -7,8 +7,8 @@ import android.util.Log;
 
 import java.util.List;
 
-import com.example.myapplication.Data.DataBaseHandler;
-import com.example.myapplication.Model.Products;
+import com.example.myapplication.data.DataBaseHandler;
+import com.example.myapplication.model.Products;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
         List<Products> productsList = dataBaseHandler.getAllProd();
 
         //Удаляем какой-либо продукт по его id
-        Products deleteProd = dataBaseHandler.getProd(5);
-        dataBaseHandler.deleteProd(deleteProd);
+        //Products deleteProd = dataBaseHandler.getProd();
+        //dataBaseHandler.deleteProd(deleteProd);
 
         //Вывод списка продуктов в консоль
         for (Products products : productsList){
@@ -37,10 +37,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Смена каких-либо характеристик продукта
-        Products products = dataBaseHandler.getProd(2);
-        products.setName("Cucumber");
-        products.setCategory("Vegetables");
-        dataBaseHandler.updateProd(products);
-        Log.d("Products info: ", "ID" + products.getId() + " , Name - " + products.getName() + ", Category - " + products.getCategory());
+        //Products products = dataBaseHandler.getProd(2);
+        //products.setName("Cucumber");
+        //products.setCategory("Vegetables");
+        //dataBaseHandler.updateProd(products);
+        //Log.d("Products info: ", "ID" + products.getId() + " , Name - " + products.getName() + ", Category - " + products.getCategory());
     }
 }

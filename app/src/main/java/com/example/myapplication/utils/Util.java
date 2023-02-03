@@ -1,4 +1,4 @@
-package com.example.myapplication.Utils;
+package com.example.myapplication.utils;
 
 public class Util {
     public static final int DATABASE_VERSION = 1;

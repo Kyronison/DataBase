@@ -1,4 +1,4 @@
-package com.example.myapplication.Data;
+package com.example.myapplication.data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,8 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.myapplication.Model.Products;
-import com.example.myapplication.Utils.Util;
+import com.example.myapplication.model.Products;
+import com.example.myapplication.utils.Util;
 
 public class DataBaseHandler extends SQLiteOpenHelper {
 
@@ -24,7 +24,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         String CREATE_PRODUCTS_TABLE = "CREATE TABLE " + Util.TABLE_NAME + " ("
                 + Util.KEY_ID + " INTEGER PRIMARY KEY, "
                 + Util.KEY_NAME + " TEXT, "
-                + Util.KEY_CATEGORY + " TEXT" + " )" ;
+                + Util.KEY_CATEGORY + " TEXT" + " );" ;
 
         sqLiteDatabase.execSQL(CREATE_PRODUCTS_TABLE);
     }
@@ -32,7 +32,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     //Без понятия, но звучит классно
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Util.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Util.TABLE_NAME + ";");
         onCreate(sqLiteDatabase);
     }
 
@@ -53,12 +53,21 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(Util.TABLE_NAME, new String[] {Util.KEY_ID, Util.KEY_NAME, Util.KEY_CATEGORY},
                 Util.KEY_ID + "=?", new String[]{String.valueOf(id)}, null,null,null,null);
+        /*
         if (cursor != null){
             cursor.moveToFirst();
         }
-        Products products = new Products(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2));
-        return products;
+        */
+        while (cursor!= null && cursor.moveToNext()){
+            Products products = new Products(Integer.parseInt(cursor.getString(0)),
+                    cursor.getString(1), cursor.getString(2));
+            cursor.close();
+            return products;
+        }
+        if (cursor!=null){
+            cursor.close();
+        }
+        return null;
     }
 
     //Возвращает все продукты
@@ -66,7 +75,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
         List<Products> prodList = new ArrayList<>();
-        String selectAllProd = "Select * from " + Util.TABLE_NAME;
+        String selectAllProd = "Select * from " + Util.TABLE_NAME + ";";
         Cursor cursor = db.rawQuery(selectAllProd, null);
         if (cursor.moveToFirst()){
 
@@ -79,6 +88,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 prodList.add(products);
             } while(cursor.moveToNext());
         }
+        cursor.close();
         return prodList;
     }
 

@@ -17,6 +17,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public DataBaseHandler(Context context) {
         super(context, Util.DATABASE_NAME, null, Util.DATABASE_VERSION);
     }
+
     //Создание БД
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
@@ -90,7 +91,6 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         return db.update(Util.TABLE_NAME, contentValues, Util.KEY_ID + "=?", new String[]{String.valueOf(products.getId())});
     }
-
     //Удаляет продукт
     public void deleteProd (Products products){
         SQLiteDatabase db = this.getWritableDatabase();
